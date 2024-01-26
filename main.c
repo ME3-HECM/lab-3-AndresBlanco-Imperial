@@ -17,6 +17,6 @@ void main(void) {
 	//call your initialisation functions to set up the hardware modules
 
     while (1) {
-		
+		    LATDbits.LATD7 =1;
     }
 }
