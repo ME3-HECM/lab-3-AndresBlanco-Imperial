@@ -25,6 +25,6 @@ void main(void) {
     Timer0_init();
     LEDarray_init();
     while (1) {
-        LEDarray_disp_bin(get16bitTMR0val() >> 8);
+        LEDarray_disp_bin(get16bitTMR0val() >> 8); //display 8 MSB
     }
 }
