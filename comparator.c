@@ -15,6 +15,7 @@ void DAC_init(void)
     DAC1CON0bits.DAC1EN=1;      //turn on DAC
 }
 
+
 /************************************
  * Function to set up comparator to compare RF7 to the DAC output voltage
  * Note the CM1 interrupt is not enabled by this function 

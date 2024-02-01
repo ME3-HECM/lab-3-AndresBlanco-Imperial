@@ -23,6 +23,6 @@ void main(void) {
     Comp1_init();
     Interrupts_init();
     while (1) {
-
+        Sleep();
     }
 }
