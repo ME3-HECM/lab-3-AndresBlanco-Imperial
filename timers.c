@@ -11,10 +11,19 @@ void Timer0_init(void)
     T0CON1bits.T0CKPS=0b1000; // 1:256
     T0CON0bits.T016BIT=1;	//16bit mode	
 	
+    PIE0bits.TMR0IE = 1; //enable intrerrupt
+    PIR0bits.TMR0IF = 0; // clear interrupt flag
+    IPR0bits.TMR0IP = 0; // low priority
+    INTCONbits.IPEN = 1; // enable interrupt priority
+    INTCONbits.PEIE = 1; // peripheral interrupt
+    INTCONbits.GIE = 1; // global interrupt
+            
     // it's a good idea to initialise the timer registers so we know we are at 0
     TMR0H=0;            //write High reg first, update happens when low reg is written to
     TMR0L=0;
     T0CON0bits.T0EN=1;	//start the timer
+    
+    
     
 }
 
@@ -27,4 +36,14 @@ unsigned int get16bitTMR0val(void)
     unsigned int combined_value;
     combined_value = TMR0L | (TMR0H << 8);
     return combined_value;
+}
+
+void __interrupt(low_priority) LowISR()
+{   
+    if (PIR0bits.TMR0IF == 1) { // check interrupt flag
+        LATHbits.LATH3 = !LATHbits.LATH3; // toggle LED
+        TMR0H = 0; // reset timer
+        TMR0L = 0;
+        PIR0bits.TMR0IF = 0; // clear interrupt flag
+    }
 }
