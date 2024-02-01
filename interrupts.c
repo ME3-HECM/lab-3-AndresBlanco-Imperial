@@ -23,7 +23,7 @@ void __interrupt(high_priority) HighISR()
 {
 	//add your ISR code here i.e. check the flag, do something (i.e. toggle an LED), clear the flag...
     if (PIR2bits.C1IF == 1) {
-        LATHbits.LATH3 = 1;
+    LATHbits.LATH3 = !LATHbits.LATH3;//change value for the H3 LED 
         PIR2bits.C1IF = 0;
     }
 }
